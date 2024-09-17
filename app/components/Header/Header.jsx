@@ -1,7 +1,7 @@
 import { RiMovie2Fill } from "react-icons/ri";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "@remix-run/react";
-import "./Header.css";
+import styles from "./Header.css";
 
 export default function Header() {
   return (
@@ -46,4 +46,8 @@ export default function Header() {
       </div>
     </header>
   );
+}
+
+export function links() {
+  return [{ rel: "stylesheet", href: styles }]
 }

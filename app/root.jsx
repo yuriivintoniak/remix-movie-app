@@ -7,6 +7,7 @@ import {
 } from "@remix-run/react";
 
 import "./tailwind.css";
+import styles from "./styles/main.css";
 import Header from "./components/Header/Header";
 
 export function Layout({ children }) {
@@ -22,10 +23,12 @@ export function Layout({ children }) {
         <Links />
       </head>
       <body>
-        <Header />
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+        <main>
+          <Header />
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+        </main>
       </body>
     </html>
   );
@@ -33,4 +36,8 @@ export function Layout({ children }) {
 
 export default function App() {
   return <Outlet />;
+}
+
+export function links() {
+  return [{ rel: "stylesheet", href: styles }]
 }
