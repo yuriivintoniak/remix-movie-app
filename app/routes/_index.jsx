@@ -1,6 +1,7 @@
 import "../styles/index.css"
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+// import MovieCard from "../components/MovieCard/MovieCard";
 import MovieCard, { links as movieCardLinks } from "../components/MovieCard/MovieCard";
 
 export const meta = () => {
@@ -23,7 +24,11 @@ export default function Index() {
       <ul className="movie-list">
         {movies.map((movie) => (
           <li key={movie.id}>
-            <MovieCard id={movie.id} poster={movie.poster} />
+            <MovieCard 
+              id={movie.id} 
+              title={movie.title} 
+              poster={movie.poster} 
+            />
           </li>
         ))}
       </ul> 

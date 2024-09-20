@@ -1,13 +1,16 @@
 import {
+  isRouteErrorResponse,
+  Link,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError
 } from "@remix-run/react";
 
 import "./tailwind.css";
-import styles from "./styles/main.css";
+import styles from "./styles/main.css?url";
 import Header from "./components/Header/Header";
 
 export function Layout({ children }) {
@@ -39,5 +42,44 @@ export default function App() {
 }
 
 export function links() {
-  return [{ rel: "stylesheet", href: styles }]
+  return [{ rel: "stylesheet", href: styles }];
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  const link = {
+    color: "#8f42dd",
+    textDecoration: "underline",
+  };
+
+  return (
+    <html>
+      <head>
+        <Meta />
+        <Links />
+        <title>Oops!</title>
+      </head>
+      <body>
+        <main className="error">
+          {isRouteErrorResponse(error) ? (
+            <>
+              <h1>Oops!</h1>
+              <p>{error.status}</p>
+              <p>{error.statusText}</p>
+              <p>
+                Back to <Link to="/" style={link}>safety!</Link>
+              </p>
+            </>
+          ) : error instanceof Error ? (
+            <>
+              <p>{error.message}</p>
+            </>
+          ) : "Unknown Error"}        
+        </main>
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
 }

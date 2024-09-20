@@ -14,7 +14,7 @@
   border-radius: var(--border-radius);
 }
 
-.movie_heroImage {
+.movie_hero img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -48,4 +48,19 @@
   font-size: 16px;
   line-height: var(--line-height);
   color: rgba(var(--color-text-secondary));
+}
+
+.error {
+  max-width: 25rem;
+  margin: 3rem auto;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 8px;
+  background-color: hsl(24, 91%, 75%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.error h1 {
+  font-size: 26px;
+  font-weight: 600;
 }
