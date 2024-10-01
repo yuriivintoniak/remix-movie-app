@@ -11,7 +11,7 @@ import {
 
 import "./tailwind.css";
 import styles from "./styles/main.css?url";
-import Header from "./components/Header/Header";
+import Header, { links as headerLinks } from "./components/Header/Header";
 
 export function Layout({ children }) {
   return (
@@ -41,9 +41,10 @@ export default function App() {
   return <Outlet />;
 }
 
-export function links() {
-  return [{ rel: "stylesheet", href: styles }];
-}
+export const links = () => [
+  ...headerLinks(),
+  { rel: "stylesheet", href: styles },
+];
 
 export function ErrorBoundary() {
   const error = useRouteError();
@@ -54,7 +55,7 @@ export function ErrorBoundary() {
   };
 
   return (
-    <html>
+    <html lang="en">
       <head>
         <Meta />
         <Links />

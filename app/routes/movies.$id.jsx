@@ -1,17 +1,19 @@
 import { json } from "@remix-run/node";
-import { Link, isRouteErrorResponse, useRouteError, useLoaderData } from "@remix-run/react";
 import styles from "../styles/movie-details.css?url";
+import { Link, isRouteErrorResponse, useRouteError, useLoaderData } from "@remix-run/react";
 
 export const loader = async ({ params }) => {
   try {
-    const res = await fetch(`https://freetestapi.com/api/v1/movies/${params.id}`);
-    const movie = await res.json();
+    const response = await fetch(
+      `https://freetestapi.com/api/v1/movies/${params.id}`
+    );
+    const movie = await response.json();
     return json(movie);
-  } catch(err) {
-    console.log(err);
-    throw new Response(null, {
-      status: 404,
-      statusText: "Not Found",
+  } catch (error) {
+    console.log(error);
+    throw new Response({
+      status: error.status,
+      statusText: error.statusText,
     });
   }
 };
@@ -64,7 +66,7 @@ export function ErrorBoundary() {
         </>
       ) : (
         <>
-          <h1>An error occurred!</h1>
+          <h1>Something went wrong!</h1>
         </>
       )}
     </main>
