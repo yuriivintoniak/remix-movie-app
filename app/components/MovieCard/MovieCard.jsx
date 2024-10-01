@@ -1,13 +1,16 @@
-import "./MovieCard.css";
 import { Link } from "@remix-run/react";
+import styles from "./MovieCard.css?url";
 
-export default function MovieCard(props) {
-  console.log(props);
-  const movie = props;
-  console.log(movie);
+export default function MovieCard({ id, title, poster }) {
   return (
-    <Link to={`/movies/${movie.id}`}>
-      <img src={movie.poster} alt="Movie" />  
-    </Link> 
+    <div className="card">
+      <Link to={`/movies/${id}`}>
+        <img className="cardImage" src={poster} alt={title} />  
+      </Link> 
+    </div>
   );
+}
+
+export function links() {
+  return [{ rel: "stylesheet", href: styles }];
 }

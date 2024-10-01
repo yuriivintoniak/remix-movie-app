@@ -1,14 +1,12 @@
-import "../styles/index.css"
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import MovieCard from "../components/MovieCard/MovieCard";
+import styles from "../styles/index.css?url";
+import MovieCard, { links as movieCardLinks } from "../components/MovieCard/MovieCard";
 
-export const meta = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
-};
+export const meta = () => [
+  { title: "New Remix App" },
+  { name: "description", content: "Welcome to Remix!" },
+];
 
 export const loader = async () => {
   const res = await fetch("https://freetestapi.com/api/v1/movies?limit=20");
@@ -20,25 +18,22 @@ export default function Index() {
 
   return (
     <div>
-      <main>
-        {/* <div className="movie-list">
-          {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie}  
+      <ul className="movie-list">
+        {movies.map((movie) => (
+          <li key={movie.id}>
+            <MovieCard 
+              id={movie.id} 
+              title={movie.title} 
+              poster={movie.poster} 
             />
-          ))}
-        </div> */}
-
-        <ul className="movie-list">
-          {movies.map((movie) => (
-            <li key={movie.id}>
-              <MovieCard
-                id={movie.id}
-                poster={movie.poster}   
-              />
-            </li>
-          ))}
-        </ul> 
-      </main>
+          </li>
+        ))}
+      </ul> 
     </div>
   );
 }
+
+export const links = () => [
+  ...movieCardLinks(),
+  { rel: "stylesheet", href: styles },
+];
