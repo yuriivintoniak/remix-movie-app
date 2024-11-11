@@ -1,7 +1,7 @@
 import { RiMovie2Fill } from "react-icons/ri";
-import { FaSearch } from "react-icons/fa";
+import { RiSearch2Line } from "react-icons/ri";
 import { Link } from "@remix-run/react";
-import "./Header.css";
+import styles from "./Header.css?url";
 
 export default function Header() {
   return (
@@ -42,8 +42,14 @@ export default function Header() {
         </ul>
       </nav>
       <div>
-        <FaSearch className="search" />
+        <Link to={`/search`}>
+          <RiSearch2Line className="search" />
+        </Link>
       </div>
     </header>
   );
+}
+
+export function links() {
+  return [{ rel: "stylesheet", href: styles }];
 }
