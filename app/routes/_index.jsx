@@ -9,19 +9,27 @@ export const meta = () => [
   { name: "description", content: "Welcome to Remix!" },
 ];
 
+const apiKey = process.env.OMDB_API_KEY;
+const baseUrl = "http://www.omdbapi.com/";
+
 export const loader = async ({ request }) => {
   try {
     const url = new URL(request.url);
-    const page = url.searchParams.get("page");
+    const page = url.searchParams.get("page") || 1;
     const res = await fetch(
-      `http://www.omdbapi.com/?s=movie&apikey=5ccd3d05&page=${page}`
+      `${baseUrl}?s=movie&apikey=${apiKey}&page=${page}`
     );
+    if (!res.ok) {
+      throw new Error(`Error: ${res.statusText}`);
+    }
     const data = await res.json();
-
+    if (!data.Search) {
+      throw new Error("No movies found");
+    }
     return json({
       movies: data.Search,
       totalResults: data.totalResults,
-      currentPage: page,
+      currentPage: Number(page),
     });
   } catch (error) {
     console.error(error);

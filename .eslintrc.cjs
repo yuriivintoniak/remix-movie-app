@@ -18,6 +18,7 @@ module.exports = {
     browser: true,
     commonjs: true,
     es6: true,
+    node: true,
   },
   ignorePatterns: ["!**/.server", "!**/.client"],
 
@@ -55,6 +56,9 @@ module.exports = {
       files: [".eslintrc.cjs"],
       env: {
         node: true,
+      },
+      globals: {
+        process: "readonly",
       },
     },
   ],
