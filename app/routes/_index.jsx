@@ -15,7 +15,7 @@ const baseUrl = "http://www.omdbapi.com/";
 export const loader = async ({ request }) => {
   try {
     const url = new URL(request.url);
-    const page = url.searchParams.get("page") || 1;
+    const page = new URLSearchParams(url.search).get("page") || 1;
     const res = await fetch(
       `${baseUrl}?s=movie&apikey=${apiKey}&page=${page}`
     );
