@@ -1,0 +1,28 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.pagination span {
+  padding: 8px 16px;
+  font-weight: bold;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #333;
+  background-color: #f0f0f0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination span:hover {
+  color: #fff;
+  background-color: #007bff;
+}
+
+.pagination p {
+  color: #555;
+  font-size: 16px;
+  font-weight: 500;
+}
