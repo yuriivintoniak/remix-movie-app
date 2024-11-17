@@ -5,19 +5,18 @@ export default function Pagination({ currentPage, totalPages }) {
   const isPrevPageAvailable = currentPage > 1;
   const isNextPageAvailable = currentPage < totalPages;
 
-  const prevPageUrl = `?page=${currentPage - 1}`;
-  const nextPageUrl = `?page=${currentPage + 1}`;
+  const getPageUrl = (offset) => `?page=${currentPage + offset}`;
 
   return (
     <div className="pagination">
       {isPrevPageAvailable && (
-        <Link to={prevPageUrl}>
+        <Link to={getPageUrl(-1)}>
           <span>&lt;</span>
         </Link>
       )}
       <p>{currentPage} of {totalPages}</p>
       {isNextPageAvailable && (
-        <Link to={nextPageUrl}>
+        <Link to={getPageUrl(1)}>
           <span>&gt;</span>
         </Link>
       )}

@@ -15,28 +15,34 @@ const baseUrl = "http://www.omdbapi.com/";
 export const loader = async ({ request }) => {
   try {
     const url = new URL(request.url);
-    const page = new URLSearchParams(url.search).get("page") || 1;
-    const res = await fetch(
-      `${baseUrl}?s=movie&apikey=${apiKey}&page=${page}`
-    );
+    const params = new URLSearchParams(url.search);
+
+    const queryParams = {
+      s: "movie",
+      apikey: apiKey,
+      page: params.get("page") || 1,
+    };
+
+    Object.entries(queryParams).forEach(([key, value]) => params.set(key, value));
+
+    const res = await fetch(`${baseUrl}?${params.toString()}`);
+
     if (!res.ok) {
       throw new Error(`Error: ${res.statusText}`);
     }
     const data = await res.json();
+
     if (!data.Search) {
       throw new Error("No movies found");
     }
     return json({
       movies: data.Search,
       totalResults: data.totalResults,
-      currentPage: Number(page),
+      currentPage: Number(queryParams.page),
     });
   } catch (error) {
     console.error(error);
-    throw new Response({
-      status: error.status,
-      statusText: error.statusText,
-    });
+    throw new Response(error.message || "Internal Server Error", { status: 500 });
   }
 }
 
