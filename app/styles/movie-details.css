@@ -79,6 +79,11 @@
   font-weight: 600;
 }
 
+#link {
+  color: #8f42dd;
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   .movie-container {
     width: 95%;

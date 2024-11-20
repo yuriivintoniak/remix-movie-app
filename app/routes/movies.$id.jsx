@@ -2,18 +2,18 @@ import { json } from "@remix-run/node";
 import styles from "../styles/movie-details.css?url";
 import { Link, isRouteErrorResponse, useRouteError, useLoaderData } from "@remix-run/react";
 
-const apiKey = process.env.OMDB_API_KEY;
-const baseUrl = "http://www.omdbapi.com/";
+const API_KEY = process.env.OMDB_API_KEY;
+const BASE_URL = "http://www.omdbapi.com/";
 
 export const loader = async ({ params }) => {
   try {
     const { id } = params;
     const queryParams = new URLSearchParams({
       i: id,
-      apikey: apiKey,
+      apikey: API_KEY,
     });
 
-    const res = await fetch(`${baseUrl}?${queryParams.toString()}`);
+    const res = await fetch(`${BASE_URL}?${queryParams.toString()}`);
 
     if (!res.ok) {
       throw new Error(`Error: ${res.statusText}`)
@@ -43,7 +43,7 @@ export default function MovieDetailsPage() {
           <h1>{movie.Title}</h1>
         </div>
         <div className="details-header">
-          {movie.Year} &#x2022; {movie.Country} &#x2022; 
+          {movie.Year} &bull; {movie.Country} &bull;
           Rating - <span className="movie-rating">{movie.imdbRating}</span>/10
         </div>
         <ul className="details-list">
@@ -70,12 +70,7 @@ export function links() {
 
 export function ErrorBoundary() {
   const error = useRouteError();
-
-  const link = {
-    color: "#8f42dd",
-    textDecoration: "underline",
-  };
-
+  
   return (
     <main className="error">
       {isRouteErrorResponse(error) ? (
@@ -84,7 +79,7 @@ export function ErrorBoundary() {
           <p>{error.status}</p>
           <p>{error.statusText}</p>
           <p>
-            Back to <Link to="/" style={link}>safety!</Link>
+            Back to <Link to="/" id="link">safety!</Link>
           </p>
         </>
       ) : (
