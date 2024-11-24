@@ -28,15 +28,14 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   background-color: rgba(232, 234, 236, 1);
 }
 
 main {
-  max-width: 1170px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 0 5.5rem;
 }
 
 .error {
@@ -52,4 +51,9 @@ main {
 .error h1 {
   font-size: 26px;
   font-weight: 600;
+}
+
+#link {
+  color: #8f42dd;
+  text-decoration: underline;
 }

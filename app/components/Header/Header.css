@@ -1,6 +1,5 @@
 .header {
-  padding: 75px 0 25px;
-  margin: 0px auto 0px;
+  padding: 3.5rem 5.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,11 +14,11 @@
   line-height: 2.5rem;
 }
 
-.nav_list {
+.nav-list {
   display: flex;
 }
 
-.nav_link {
+.nav-link {
   color: #201f1f;
   opacity: 1;
   font-size: 20px;
@@ -28,12 +27,12 @@
   margin-right: 30px;
 }
 
-.nav_link:hover {
+.nav-link:hover {
   opacity: 0.5;
   transition: all 0.5s ease;
 }
 
-.search {
+.search-icon {
   width: 28px;
   height: 28px;
   opacity: 1;
@@ -41,7 +40,7 @@
   color: #201f1f;
 }
 
-.search:hover {
+.search-icon:hover {
   opacity: 0.5;
   transition: all 0.5s ease;
 }
