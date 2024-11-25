@@ -26,12 +26,12 @@ export function Layout({ children }) {
         <Links />
       </head>
       <body>
+        <Header />
         <main>
-          <Header />
           {children}
-          <ScrollRestoration />
-          <Scripts />
         </main>
+        <ScrollRestoration />
+        <Scripts />
       </body>
     </html>
   );
@@ -49,11 +49,6 @@ export const links = () => [
 export function ErrorBoundary() {
   const error = useRouteError();
 
-  const link = {
-    color: "#8f42dd",
-    textDecoration: "underline",
-  };
-
   return (
     <html lang="en">
       <head>
@@ -69,7 +64,7 @@ export function ErrorBoundary() {
               <p>{error.status}</p>
               <p>{error.statusText}</p>
               <p>
-                Back to <Link to="/" style={link}>safety!</Link>
+                Back to <Link to="/" id="link">safety!</Link>
               </p>
             </>
           ) : error instanceof Error ? (
