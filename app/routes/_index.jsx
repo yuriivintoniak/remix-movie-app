@@ -9,8 +9,8 @@ export const meta = () => [
   { name: "description", content: "Welcome to Remix!" },
 ];
 
-const apiKey = process.env.OMDB_API_KEY;
-const baseUrl = "http://www.omdbapi.com/";
+const API_KEY = process.env.OMDB_API_KEY;
+const BASE_URL = "http://www.omdbapi.com/";
 
 export const loader = async ({ request }) => {
   try {
@@ -19,13 +19,13 @@ export const loader = async ({ request }) => {
 
     const queryParams = {
       s: "movie",
-      apikey: apiKey,
+      apikey: API_KEY,
       page: params.get("page") || 1,
     };
 
     Object.entries(queryParams).forEach(([key, value]) => params.set(key, value));
 
-    const res = await fetch(`${baseUrl}?${params.toString()}`);
+    const res = await fetch(`${BASE_URL}?${params.toString()}`);
 
     if (!res.ok) {
       throw new Error(`Error: ${res.statusText}`);

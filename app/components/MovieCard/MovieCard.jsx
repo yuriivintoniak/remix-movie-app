@@ -5,7 +5,7 @@ export default function MovieCard({ id, title, poster }) {
   return (
     <div className="card">
       <Link to={`/movies/${id}`}>
-        <img className="cardImage" src={poster} alt={title} />  
+        <img className="card-image" src={poster} alt={title} />  
       </Link> 
     </div>
   );
