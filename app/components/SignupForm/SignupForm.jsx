@@ -1,22 +1,29 @@
-import { Form } from "@remix-run/react";
+import { Form, useActionData } from "@remix-run/react";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 import styles from "./SignupForm.css?url";
 
 export default function SignupForm() {
   const { 
-    register, 
-    handleSubmit, 
+    register,
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
-  const onSubmit = (data) => console.log(data);
+  const actionData = useActionData();
+
+  useEffect(() => {
+    if (actionData?.success) {
+      alert(actionData.message);
+    }
+  }, [actionData]);
 
   return (
-    <Form method="post" onSubmit={handleSubmit(onSubmit)} className="container">
+    <Form method="post" className="container">
       <label htmlFor="email">Email</label>
       <input 
         type="email" 
-        id="email" 
+        id="email"
+        name="email"
         {...register("email", {
           required: "Email is required",
           pattern: {
@@ -33,6 +40,7 @@ export default function SignupForm() {
       <input 
         type="password" 
         id="password"
+        name="password"
         {...register("password", {
           required: "Password is required",
           minLength: {
@@ -46,6 +54,8 @@ export default function SignupForm() {
       {errors.password && <p className="error-message">{errors.password.message}</p>}
 
       <button type="submit">Sign Up</button>
+
+      {actionData?.error && <p className="error-message mt-4 text-center">{actionData.error}</p>}
     </Form>
   );
 }
