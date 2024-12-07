@@ -27,9 +27,14 @@ export default function Header() {
           ))}
         </ul>
       </nav>
-      <Link to={`/search`}>
-        <RiSearch2Line className="search-icon" />
-      </Link>
+      <div className="auth-links">
+        <Link to={`/signup`} className="sign-up">
+          Sign Up
+        </Link>
+        <Link to={`/search`}>
+          <RiSearch2Line className="search-icon" />
+        </Link>
+      </div>
     </header>
   );
 }
