@@ -1,19 +1,11 @@
 import SignupForm from "../components/SignupForm/SignupForm";
 import { links as signupFormLinks} from "../components/SignupForm/SignupForm";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { supabase } from "../../supabase";
 
 export default function Signup() {
-  return (
-    <div>
-      <SignupForm />
-    </div>
-  );
+  return <SignupForm />;
 }
-
-export const links = () => {
-  return [...signupFormLinks()];
-};
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -33,5 +25,9 @@ export const action = async ({ request }) => {
     return json({ success: false, error: error.message }, { status: 400 });
   }
 
-  return json({ success: true, message: "Registration successful!" }, { status: 200 });
+  return redirect("/");
+};
+
+export const links = () => {
+  return [...signupFormLinks()];
 };

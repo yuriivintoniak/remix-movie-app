@@ -1,6 +1,5 @@
 import { Form, useActionData, useSubmit } from "@remix-run/react";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
 import styles from "./SignupForm.css?url";
 
 export default function SignupForm() {
@@ -19,12 +18,6 @@ export default function SignupForm() {
     formData.append("password", data.password);
     submit(formData, { method: "post" });
   };
-
-  useEffect(() => {
-    if (actionData?.success) {
-      alert(actionData.message);
-    }
-  }, [actionData]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="container">
