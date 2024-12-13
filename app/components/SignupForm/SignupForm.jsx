@@ -1,4 +1,4 @@
-import { Form, useActionData } from "@remix-run/react";
+import { Form, useActionData, useSubmit } from "@remix-run/react";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import styles from "./SignupForm.css?url";
@@ -6,10 +6,19 @@ import styles from "./SignupForm.css?url";
 export default function SignupForm() {
   const { 
     register,
+    handleSubmit,
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
+  const submit = useSubmit();
   const actionData = useActionData();
+
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    submit(formData, { method: "post" });
+  };
 
   useEffect(() => {
     if (actionData?.success) {
@@ -18,7 +27,7 @@ export default function SignupForm() {
   }, [actionData]);
 
   return (
-    <Form method="post" className="container">
+    <Form onSubmit={handleSubmit(onSubmit)} className="container">
       <label htmlFor="email">Email</label>
       <input 
         type="email" 
@@ -34,7 +43,9 @@ export default function SignupForm() {
         style={{ border: errors.email ? "2px solid #b22222" : "" }}
       />
 
-      {errors.email && <p className="error-message">{errors.email.message}</p>}
+      {errors.email && ( 
+        <p className="error-message">{errors.email.message}</p>
+      )}
 
       <label htmlFor="password">Password</label>
       <input 
@@ -51,11 +62,15 @@ export default function SignupForm() {
         style={{ border: errors.password ? "2px solid #b22222" : "" }}
       />
 
-      {errors.password && <p className="error-message">{errors.password.message}</p>}
+      {errors.password && ( 
+        <p className="error-message">{errors.password.message}</p>
+      )}
 
       <button type="submit">Sign Up</button>
 
-      {actionData?.error && <p className="error-message mt-4 text-center">{actionData.error}</p>}
+      {actionData?.error && ( 
+        <p className="error-message mt-4 text-center">{actionData.error}</p>
+      )}
     </Form>
   );
 }
