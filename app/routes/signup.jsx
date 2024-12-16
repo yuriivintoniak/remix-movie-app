@@ -1,10 +1,10 @@
-import SignupForm from "../components/SignupForm/SignupForm";
-import { links as signupFormLinks} from "../components/SignupForm/SignupForm";
 import { json, redirect } from "@remix-run/node";
 import { supabase } from "../../supabase";
+import AuthForm from "../components/AuthForm/AuthForm";
+import { links as authFormLinks} from "../components/AuthForm/AuthForm";
 
 export default function Signup() {
-  return <SignupForm />;
+  return <AuthForm mode="signup" />;
 }
 
 export const action = async ({ request }) => {
@@ -29,5 +29,5 @@ export const action = async ({ request }) => {
 };
 
 export const links = () => {
-  return [...signupFormLinks()];
+  return [...authFormLinks()];
 };
