@@ -1,5 +1,7 @@
 import { Form, Link, useActionData, useSubmit } from "@remix-run/react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { authSchema } from "../../schemas/authSchema";
 import styles from "./AuthForm.css?url";
 
 export default function AuthForm({ mode }) {
@@ -7,7 +9,10 @@ export default function AuthForm({ mode }) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onChange" });
+  } = useForm({ 
+    mode: "onChange",
+    resolver: yupResolver(authSchema),
+  });
 
   const submit = useSubmit();
   const actionData = useActionData();
@@ -26,16 +31,9 @@ export default function AuthForm({ mode }) {
         type="text" 
         id="name"
         name="name"
-        {...register("name", {
-          required: "Name is required",
-          minLength: {
-            value: 3,
-            message: "Name must be at least 3 characters",
-          },
-        })}
-        style={{ border: errors.name ? "2px solid #b22222" : "" }}
+        {...register("name")}
+        className={errors.name ? "input-error" : ""}
       />
-
       {errors.name && ( 
         <p className="error-message">{errors.name.message}</p>
       )}
@@ -45,16 +43,9 @@ export default function AuthForm({ mode }) {
         type="email" 
         id="email"
         name="email"
-        {...register("email", {
-          required: "Email is required",
-          pattern: {
-            value: /^[^@]+@[^@]+\.[^@]+$/,
-            message: "Invalid email address",
-          },
-        })}
-        style={{ border: errors.email ? "2px solid #b22222" : "" }}
+        {...register("email")}
+        className={errors.name ? "input-error" : ""}
       />
-
       {errors.email && ( 
         <p className="error-message">{errors.email.message}</p>
       )}
@@ -64,16 +55,9 @@ export default function AuthForm({ mode }) {
         type="password" 
         id="password"
         name="password"
-        {...register("password", {
-          required: "Password is required",
-          minLength: {
-            value: 8,
-            message: "Password must be at least 6 characters",
-          },
-        })}
-        style={{ border: errors.password ? "2px solid #b22222" : "" }}
+        {...register("password")}
+        className={errors.name ? "input-error" : ""}
       />
-
       {errors.password && ( 
         <p className="error-message">{errors.password.message}</p>
       )}

@@ -23,6 +23,10 @@ input:focus {
   border-color: rgba(var( --color-text-secondary));
 }
 
+.input-error {
+  border: 2px solid #b22222 !important;
+}
+
 .error-message {
   color: #b22222;
   font-weight: 600;
