@@ -9,6 +9,7 @@ export default function Signup() {
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
+  const name = formData.get("name");
   const email = formData.get("email");
   const password = formData.get("password");
 
@@ -17,6 +18,7 @@ export const action = async ({ request }) => {
   }
 
   const { error } = await supabase.auth.signUp({
+    name: name,
     email: email,
     password: password,
   });

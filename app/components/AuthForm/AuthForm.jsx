@@ -19,6 +19,7 @@ export default function AuthForm({ mode }) {
 
   const onSubmit = (data) => {
     const formData = new FormData();
+    formData.append("name", data.name);
     formData.append("email", data.email);
     formData.append("password", data.password);
     submit(formData, { method: "post" });
