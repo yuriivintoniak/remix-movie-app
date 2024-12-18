@@ -28,8 +28,8 @@ export default function Header() {
         </ul>
       </nav>
       <div className="auth-links">
-        <Link to={`/signup`} className="sign-up">
-          Sign Up
+        <Link to={`/login`} className="auth">
+          Log In
         </Link>
         <Link to={`/search`}>
           <RiSearch2Line className="search-icon" />
