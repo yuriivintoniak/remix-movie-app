@@ -19,26 +19,14 @@ export default function AuthForm({ mode }) {
 
   const onSubmit = (data) => {
     const formData = new FormData();
-    formData.append("name", data.name);
     formData.append("email", data.email);
     formData.append("password", data.password);
-    submit(formData, { method: "post" });
+    const actionUrl = mode === "signup" ? "/signup" : "/login";
+    submit(formData, { method: "post", action: actionUrl });
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="container">
-      <label htmlFor="name">Name</label>
-      <input 
-        type="text" 
-        id="name"
-        name="name"
-        {...register("name")}
-        className={errors.name ? "input-error" : ""}
-      />
-      {errors.name && ( 
-        <p className="error-message">{errors.name.message}</p>
-      )}
-
       <label htmlFor="email">Email</label>
       <input 
         type="email" 
