@@ -1,5 +1,5 @@
 import { json, redirect } from "@remix-run/node";
-import { supabase } from "../../supabase";
+import { supabase } from "../../utils/supabase/client";
 import AuthForm from "../components/AuthForm/AuthForm";
 import { links as authFormLinks } from "../components/AuthForm/AuthForm";
 
