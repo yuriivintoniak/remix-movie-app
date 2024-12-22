@@ -1,5 +1,6 @@
 import { json, redirect } from "@remix-run/node";
 import { supabase } from "../../utils/supabase/client";
+import { cookie } from "../../utils/supabase/cookies";
 import AuthForm from "../components/AuthForm/AuthForm";
 import { links as authFormLinks } from "../components/AuthForm/AuthForm";
 
@@ -16,7 +17,7 @@ export const action = async ({ request }) => {
     return json({ error: "Email and password are required" }, { status: 400 });
   }
 
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email: email,
     password: password,
   });
@@ -25,7 +26,10 @@ export const action = async ({ request }) => {
     return json({ success: false, error: error.message }, { status: 400 });
   }
 
-  return redirect("/");
+  const session = data.session;
+  const cookieHeader = await cookie.serialize(session);
+
+  return redirect("/", { headers: { "Set-Cookie": cookieHeader } });
 };
 
 export const links = () => {
