@@ -1,6 +1,6 @@
 import { RiMovie2Fill } from "react-icons/ri";
 import { RiSearch2Line } from "react-icons/ri";
-import { Link } from "@remix-run/react";
+import { Form, Link } from "@remix-run/react";
 import styles from "./Header.css?url";
 
 const navLinks = [
@@ -28,6 +28,11 @@ export default function Header() {
         </ul>
       </nav>
       <div className="auth-links">
+        <Form method="post" action="/logout">
+          <button type="submit" className="auth">
+            Log Out
+          </button>
+        </Form>
         <Link to={`/login`} className="auth">
           Log In
         </Link>

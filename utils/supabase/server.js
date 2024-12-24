@@ -1,9 +1,13 @@
-import { createServerClient } from "@supabase/auth-helpers-remix";
+import { createClient } from "@supabase/supabase-js";
 
-export const getServerSupabase = (request, context) => {
-  return createServerClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_KEY,
-    { request, context }
-  );
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+
+export const createServerClient = (request) => {
+  const supabase = createClient(supabaseUrl, supabaseKey, {
+    global: {
+      headers: { Authorization: `Bearer ${request.headers.get("Authorization")}` },
+    },
+  });
+  return supabase;
 };
