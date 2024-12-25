@@ -1,7 +1,8 @@
-import { RiMovie2Fill } from "react-icons/ri";
-import { RiSearch2Line } from "react-icons/ri";
-import { Form, Link } from "@remix-run/react";
+import { RiMovie2Fill, RiSearch2Line } from "react-icons/ri";
+import { Link } from "@remix-run/react";
 import styles from "./Header.css?url";
+import AuthButton from "../AuthButton/AuthButton";
+import { links as authButtonLinks } from "../AuthButton/AuthButton";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -11,7 +12,7 @@ const navLinks = [
   { name: "Novelties", path: "/novelties" },
 ];
 
-export default function Header() {
+export default function Header({ session }) {
   return (
     <header className="header">
       <div className="logo">
@@ -28,14 +29,7 @@ export default function Header() {
         </ul>
       </nav>
       <div className="auth-links">
-        <Form method="post" action="/logout">
-          <button type="submit" className="auth">
-            Log Out
-          </button>
-        </Form>
-        <Link to={`/login`} className="auth">
-          Log In
-        </Link>
+        <AuthButton session={session} />
         <Link to={`/search`}>
           <RiSearch2Line className="search-icon" />
         </Link>
@@ -44,6 +38,7 @@ export default function Header() {
   );
 }
 
-export function links() {
-  return [{ rel: "stylesheet", href: styles }];
-}
+export const links = () => [
+  ...authButtonLinks(),
+  { rel: "stylesheet", href: styles },
+];

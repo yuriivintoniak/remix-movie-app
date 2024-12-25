@@ -6,6 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
   useRouteError
 } from "@remix-run/react";
 
@@ -13,7 +14,17 @@ import "./tailwind.css";
 import styles from "./styles/main.css?url";
 import Header, { links as headerLinks } from "./components/Header/Header";
 
+import { cookie } from "../utils/supabase/cookies";
+
+export const loader = async ({ request }) => {
+  const cookieHeader = request.headers.get("Cookie");
+  const session = await cookie.parse(cookieHeader);
+  return { session };
+};
+
 export function Layout({ children }) {
+  const { session } = useLoaderData();
+
   return (
     <html lang="en">
       <head>
@@ -26,7 +37,7 @@ export function Layout({ children }) {
         <Links />
       </head>
       <body>
-        <Header />
+        <Header session={session} />
         <main>
           {children}
         </main>
