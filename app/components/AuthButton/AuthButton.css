@@ -1,0 +1,11 @@
+.auth {
+  color: #0a78ff;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.auth:hover {
+  opacity: 0.7;
+}
